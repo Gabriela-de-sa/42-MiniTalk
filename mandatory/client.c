@@ -18,8 +18,10 @@
 
 void	receive_signal(void)
 {
-	// compara os sinais se esta correto e recebeu o sinal
-	// essa funcao é outra
+	if (sig == SIGUSR1 || sig == SIGUSR2)
+		;
+	else
+		exit(ft_printf("Error - Signal received with problem."));
 }
 
 void	sig_handler(void)
