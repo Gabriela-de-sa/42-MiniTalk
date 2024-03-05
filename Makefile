@@ -6,16 +6,17 @@
 #    By: gabriela <gabriela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 16:57:30 by gabriela          #+#    #+#              #
-#    Updated: 2024/02/19 17:53:22 by gabriela         ###   ########.fr        #
+#    Updated: 2024/03/05 10:23:26 by gabriela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #******************************************************************************#
 #								  CONFIGURATION				       			   #
 #******************************************************************************#
-NAME_SERVER = server
-NAME_CLIENT = client
-CFLAGS = -g3 -Wall -Wextra -Werror
+SERVER = server
+CLIENT = client
+CC = cc
+CFLAGS = -g3 -std=c99 -Wall -Wextra -Werror
 
 HEADERS = -I ./mandatory/include -I ./libft
 LIBS = ./libft/libft.a
@@ -24,27 +25,35 @@ LIBS = ./libft/libft.a
 #				     				FILES      								   #
 #******************************************************************************#
 
-SRC = mandatory/
+S_FILE = mandatory/server.c
+S_OBJS = $(S_FILE:.c=.o)
 
-FILES = \
-	
+C_FILE = mandatory/client.c\
+		 mandatory/ft_valid_args.c\
 
-MANDATORY_FINAL = $(addprefix $(MANDATORY),$(FILES))
+C_OBJS = $(C_FILE:.c=.o)
+#******************************************************************************#
+#				     				RULES      								   #
+#******************************************************************************#
 
-OBJS = $(MANDATORY_FINAL:.c=.o)
+all: $(SERVER) $(CLIENT) 
 
-all: libft/libft.a $(NAME_CLIENT) $(NAME_SERVER)
-
-libft/libft.a:
+$(LIBS):
 	@make -sC ./libft
 
+$(SERVER): $(S_OBJS) $(LIBS)
+	$(CC) $(CFLAGS) $(S_OBJS) $(HEADERS) $(LIBS) -o $(SERVER)
+
+$(CLIENT): $(C_OBJS) $(LIBS)
+	$(CC) $(CFLAGS) $(C_OBJS) $(HEADERS) $(LIBS) -o $(CLIENT)
+
 clean:
-	@rm -rf $(OBJS)
+	@rm -rf $(S_OBJS) $(C_OBJS)
 	@make clean -sC ./libft
 
 fclean: clean
 	@cd libft && $(MAKE) fclean
-	@rm -rf $(NAME_CLIENT) $(NAME_SERVER)
+	@rm -rf $(SERVER) $(CLIENT)
 
 re: fclean all
 

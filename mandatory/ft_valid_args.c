@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_valid_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabriela <gabriela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/25 12:43:51 by gde-sa            #+#    #+#             */
-/*   Updated: 2024/03/03 15:02:37 by gabriela         ###   ########.fr       */
+/*   Created: 2024/02/26 13:38:29 by gabriela          #+#    #+#             */
+/*   Updated: 2024/03/04 14:18:27 by gabriela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "include/minitalk.h"
+#include "../libft/libft.h"
 
-int	ft_isdigit(int c)
+void	ft_check_args(int argc, char **argv)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	int	i;
+
+	if (argc != 3)
+		exit(ft_printf("Error - Invalid number of arguments"));
+	i = 0;
+	while (argv[1][i++])
+		if (ft_isdigit(argv[1][i]) == 0)
+			exit(ft_printf("Error - Invalid PID"));
+	if (argv[2] == 0)
+		exit(ft_printf("Error - Invalid message."));
 }
