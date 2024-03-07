@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabriela <gabriela@student.42.fr>          +#+  +:+       +#+         #
+#    By: gde-sa <gde-sa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 16:57:30 by gabriela          #+#    #+#              #
-#    Updated: 2024/03/05 10:23:26 by gabriela         ###   ########.fr        #
+#    Updated: 2024/03/07 11:43:57 by gde-sa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 SERVER = server
 CLIENT = client
 CC = cc
-CFLAGS = -g3 -std=c99 -Wall -Wextra -Werror
+CFLAGS = -g3 -Wall -Wextra -Werror
 
 HEADERS = -I ./mandatory/include -I ./libft
 LIBS = ./libft/libft.a

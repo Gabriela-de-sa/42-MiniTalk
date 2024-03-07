@@ -3,26 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriela <gabriela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gde-sa <gde-sa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:36:12 by gabriela          #+#    #+#             */
-/*   Updated: 2024/03/04 21:05:00 by gabriela         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:50:26 by gde-sa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minitalk.h"
 #include "../libft/libft.h"
+#include <signal.h>
 
-void	receive_message(int sig, siginfo_t *info, void *context)
+void	receive_message(int sig, siginfo_t *siginfo, void *ucontext)
 {
 	// vai receber a mensagem do cliente
+	(void)	sig;
+    (void)	ucontext;
+
+	ft_printf("\tsi_pid..: %d\n", siginfo->si_pid);
+	ft_printf("recebi mensagem do cliente\n");
 }
 
 void	sig_handler(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_sigaction = &receive_message; // a acao que vai ter esse sinal que é receber a msg do cliente
+	sa.sa_sigaction = &receive_message;
 	sa.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
 		(ft_printf("Error - Problem receiving signal."));
