@@ -3,33 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-sa <gde-sa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gabriela <gabriela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:36:12 by gabriela          #+#    #+#             */
-/*   Updated: 2024/03/07 12:50:26 by gde-sa           ###   ########.fr       */
+/*   Updated: 2024/03/09 14:00:40 by gabriela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minitalk.h"
 #include "../libft/libft.h"
-#include <signal.h>
 
-void	receive_message(int sig, siginfo_t *siginfo, void *ucontext)
+void	receive_message(int signal)
 {
-	// vai receber a mensagem do cliente
-	(void)	sig;
-    (void)	ucontext;
+	static unsigned char	buff;
+	static int				i_bit;
 
-	ft_printf("\tsi_pid..: %d\n", siginfo->si_pid);
-	ft_printf("recebi mensagem do cliente\n");
+	if (signal == SIGUSR1)
+		buff |= 1;
+	i_bit++;
+	if (i_bit == 8)
+	{
+		write(1, &buff, 1);
+		i_bit = 0;
+		buff = 0;
+	}
+	else
+		buff = buff << 1;
 }
 
 void	sig_handler(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_sigaction = &receive_message;
-	sa.sa_flags = SA_SIGINFO;
+	sa.sa_handler = &receive_message;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
 		(ft_printf("Error - Problem receiving signal."));
 	if (sigaction(SIGUSR2, &sa, NULL) == -1)
@@ -42,6 +50,7 @@ int	main(void)
 
 	pid = getpid();
 	ft_printf("Server PID: %i\n\n", pid);
+	sig_handler();
 	while (1)
-		sig_handler();
+		pause();
 }
