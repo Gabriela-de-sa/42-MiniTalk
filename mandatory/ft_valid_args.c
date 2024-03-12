@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_valid_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriela <gabriela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gde-sa <gde-sa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:38:29 by gabriela          #+#    #+#             */
-/*   Updated: 2024/03/09 16:40:50 by gabriela         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:25:27 by gde-sa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_check_args(int argc, char **argv)
 	i = 0;
 	while (argv[1][i])
 	{
-		if (f0t_isdigit(argv[1][i]) == )
+		if (ft_isdigit(argv[1][i]) == 0)
 			exit(ft_printf("Error - Invalid PID"));
 		i++;
 	}
