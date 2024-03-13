@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 	int	pid;
 
 	ft_check_args(argc, argv);
-	pid = atoi(argv[1]);
+	pid = ft_atoi(argv[1]);
 	if (pid <= 0)
 	{
 		ft_printf("Invalid PID\n");
