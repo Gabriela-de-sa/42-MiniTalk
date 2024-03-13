@@ -6,5 +6,6 @@
         "types.h": "c",
         "libft.h": "c",
         "random": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Enabled"
 }
